@@ -1,0 +1,80 @@
+{
+  "name": "gas-meter-reader-frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "gas-meter-reader",
+  "sourceRoot": "apps/gas-meter-reader-frontend/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/gas-meter-reader-frontend",
+        "index": "apps/gas-meter-reader-frontend/src/index.html",
+        "browser": "apps/gas-meter-reader-frontend/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/gas-meter-reader-frontend/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/gas-meter-reader-frontend/src/favicon.ico",
+          "apps/gas-meter-reader-frontend/src/assets"
+        ],
+        "styles": ["apps/gas-meter-reader-frontend/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "gas-meter-reader-frontend:build:production"
+        },
+        "development": {
+          "buildTarget": "gas-meter-reader-frontend:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "gas-meter-reader-frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/gas-meter-reader-frontend/jest.config.ts"
+      }
+    }
+  }
+}
