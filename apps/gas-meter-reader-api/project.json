@@ -1,0 +1,53 @@
+{
+  "name": "gas-meter-reader-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/gas-meter-reader-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/gas-meter-reader-api",
+        "main": "apps/gas-meter-reader-api/src/main.ts",
+        "tsConfig": "apps/gas-meter-reader-api/tsconfig.app.json",
+        "assets": ["apps/gas-meter-reader-api/src/assets"],
+        "webpackConfig": "apps/gas-meter-reader-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "gas-meter-reader-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "gas-meter-reader-api:build:development"
+        },
+        "production": {
+          "buildTarget": "gas-meter-reader-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/gas-meter-reader-api/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
